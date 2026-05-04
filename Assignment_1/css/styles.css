@@ -1,0 +1,246 @@
+/* ── Video Background ── */
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* ── Sticky footer layout ──
+   html & body fill full viewport height.
+   body uses flex column so .page-wrapper
+   grows to fill space, pushing footer down. */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;   /* offset for fixed navbar */
+    min-height: 100vh;
+}
+
+.page-wrapper {
+    flex: 1;             /* takes all remaining space above footer */
+}
+
+/* ── Navbar ── */
+.nav1 {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav1 .navbar-brand,
+.nav1 .nav-link {
+    color: white !important;
+}
+
+.nav1 .nav-link:hover {
+    color: lightskyblue !important;
+}
+
+.navbar-toggler {
+    border-color: white;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+/* ── Section boxes (lightskyblue panels) ── */
+.Education_section,
+.personal_details,
+.Skill_section,
+.Project_section,
+.Certification {
+    background-color: lightskyblue;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.Education_section h2,
+.personal_details h2,
+.Skill_section h2,
+.Project_section h2,
+.Certification h2 {
+    color: #000;
+}
+
+/* ── Home: heading ── */
+.Heading {
+    margin: 20px;
+    padding: 15px;
+}
+
+.Heading h1,
+.Heading p {
+    color: white;
+    text-align: center;
+}
+
+.Heading h2 {          /* contact page uses Heading > h2 */
+    color: white;
+    text-align: center;
+}
+
+/* ── Home: intro section ── */
+.image_section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 0 20px 20px;
+    padding: 24px 28px;
+    border-radius: 15px;
+    background-color: lightskyblue;
+}
+
+.image_section img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.intro-text h2 {
+    color: #000;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+
+.intro-text p {
+    color: #1a1a1a;
+    font-size: 0.97rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+.intro-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.intro-tags span {
+    background: rgba(0,0,0,0.12);
+    color: #000;
+    font-size: 0.8rem;
+    padding: 3px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* ── Home: quick-info cards ── */
+.home-cards {
+    display: flex;
+    gap: 16px;
+    margin: 0 20px 24px;
+    flex-wrap: wrap;
+}
+
+.home-card {
+    flex: 1;
+    min-width: 130px;
+    background-color: lightskyblue;
+    border-radius: 15px;
+    padding: 18px 14px;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.home-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    color: #000;
+}
+
+.home-card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+}
+
+.home-card-label {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.home-card-sub {
+    font-size: 0.78rem;
+    color: #333;
+}
+
+/* ── Footer ── */
+.footer {
+    background-color: #111827;
+    color: white;
+    text-align: center;
+    padding: 12px 0;
+    width: 100%;
+    margin-top: 0;   /* flex layout handles spacing */
+}
+
+.footer p {
+    margin: 0;
+}
+
+/* ── Card hover (projects) ── */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+    background-color: lightskyblue;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .image_section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .intro-text h2,
+    .intro-text p {
+        text-align: center;
+    }
+
+    .intro-tags {
+        justify-content: center;
+    }
+
+    .home-cards {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-card {
+        min-width: calc(50% - 8px);
+        flex: none;
+    }
+}

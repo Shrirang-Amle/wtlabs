@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin – User Management</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container wide">
+    <div class="card">
+        <div class="card-header">
+            <h1>👥 User Management</h1>
+            <p>View and manage all user accounts</p>
+        </div>
+
+        <!-- Flash messages -->
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+        <!-- Locked accounts summary -->
+        <div th:if="${!lockedAccounts.isEmpty()}" class="alert alert-warning">
+            <strong>⚠️ <span th:text="${lockedAccounts.size()}"></span> account(s) currently locked.</strong>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Failed Attempts</th>
+                        <th>Status</th>
+                        <th>Lock Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="u : ${users}" th:classappend="${u.accountLocked} ? 'row-locked' : ''">
+                        <td th:text="${u.id}"></td>
+                        <td th:text="${u.username}"></td>
+                        <td th:text="${u.email}"></td>
+                        <td><span class="badge" th:classappend="${u.role == 'ROLE_ADMIN'} ? 'badge-admin' : 'badge-user'"
+                                  th:text="${u.role}"></span></td>
+                        <td th:text="${u.failedAttempts}"></td>
+                        <td>
+                            <span th:if="${u.accountLocked}" class="badge badge-danger">🔒 Locked</span>
+                            <span th:if="${!u.accountLocked and u.enabled}" class="badge badge-success">✅ Active</span>
+                            <span th:if="${!u.enabled}" class="badge badge-secondary">⛔ Disabled</span>
+                        </td>
+                        <td th:text="${u.lockTime != null ? #temporals.format(u.lockTime, 'yyyy-MM-dd HH:mm') : '—'}"></td>
+                        <td>
+                            <!-- Unlock button -->
+                            <form th:if="${u.accountLocked}"
+                                  th:action="@{/admin/users/{username}/unlock(username=${u.username})}"
+                                  method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-success">Unlock</button>
+                            </form>
+                            <!-- Lock button -->
+                            <form th:if="${!u.accountLocked}"
+                                  th:action="@{/admin/users/{username}/lock(username=${u.username})}"
+                                  method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-warning">Lock</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer">
+            <a th:href="@{/dashboard}" class="btn btn-secondary">← Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

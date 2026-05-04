@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #ffffff;
+    color: #000000;
+}
+
+.container {
+    width: 800px;
+    max-width: 95%;
+    margin: 20px auto;
+}
+
+.card {
+    border: 1px solid #000000;
+    padding: 20px;
+    background: #ffffff;
+}
+
+.hero {
+    text-align: center;
+}
+
+h1,
+h2 {
+    margin-top: 0;
+}
+
+.actions {
+    margin-top: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 14px;
+    margin-right: 8px;
+    text-decoration: none;
+    background: #e5e5e5;
+    color: #000000;
+    border: 1px solid #000000;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-secondary,
+.btn-danger {
+    background: #e5e5e5;
+}
+
+form {
+    margin-top: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #000000;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 120px;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+}
+
+.alert-error {
+    background: #f8d7da;
+}
+
+.alert-success {
+    background: #d1e7dd;
+}
+
+.topbar {
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    border: 1px solid #000000;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.muted {
+    font-size: 13px;
+}

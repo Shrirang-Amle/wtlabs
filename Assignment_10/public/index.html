@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Registration System</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card">
+        <div class="hero">
+          <h1>Student Registration System</h1>
+          <p class="subtitle">
+            Register students and view all saved records from the MySQL
+            database.
+          </p>
+        </div>
+
+        <form id="studentForm" class="form">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" placeholder="Enter student name" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" placeholder="Enter email address" required />
+          </label>
+          <label>
+            <span>Course</span>
+            <input type="text" name="course" placeholder="Enter course name" required />
+          </label>
+          <button type="submit">Register Student</button>
+        </form>
+
+        <p id="statusMessage" class="status" aria-live="polite"></p>
+      </section>
+
+      <section class="card">
+        <div class="section-head">
+          <h2>Registered Students</h2>
+          <button id="refreshButton" class="secondary-button" type="button">
+            Refresh List
+          </button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody">
+              <tr>
+                <td colspan="4">Loading students...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById("studentForm");
+      const statusMessage = document.getElementById("statusMessage");
+      const tableBody = document.getElementById("studentTableBody");
+      const refreshButton = document.getElementById("refreshButton");
+
+      async function loadStudents() {
+        tableBody.innerHTML = '<tr><td colspan="4">Loading students...</td></tr>';
+
+        try {
+          const response = await fetch("/api/students");
+          const students = await response.json();
+
+          if (!response.ok) {
+            throw new Error(students.message || "Failed to load students.");
+          }
+
+          if (!students.length) {
+            tableBody.innerHTML =
+              '<tr><td colspan="4">No students registered yet.</td></tr>';
+            return;
+          }
+
+          tableBody.innerHTML = students
+            .map(
+              (student) => `
+                <tr>
+                  <td>${student.id}</td>
+                  <td>${student.name}</td>
+                  <td>${student.email}</td>
+                  <td>${student.course}</td>
+                </tr>
+              `
+            )
+            .join("");
+        } catch (error) {
+          tableBody.innerHTML = `<tr><td colspan="4">${error.message}</td></tr>`;
+        }
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        statusMessage.textContent = "Saving student...";
+        statusMessage.className = "status";
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        try {
+          const response = await fetch("/api/students", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.message || "Failed to register student.");
+          }
+
+          statusMessage.textContent = result.message;
+          statusMessage.className = "status success";
+          form.reset();
+          loadStudents();
+        } catch (error) {
+          statusMessage.textContent = error.message;
+          statusMessage.className = "status error";
+        }
+      });
+
+      refreshButton.addEventListener("click", loadStudents);
+      loadStudents();
+    </script>
+  </body>
+</html>

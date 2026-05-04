@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="Heading">
+    <center>
+        <h1 style="color: white;">Welcome to My Portfolio</h1>
+        <p style="color: white;">Computer Engineering Student | Full Stack Developer</p>
+    </center>
+</div>
+
+<div class="image_section">
+    <h2>
+       Hello, I am Shrirang Amle, a Computer Engineering student and part-time Full Stack Web Developer. 
+       I specialize in building responsive web applications and efficient backend systems.
+    </h2>
+    <img src="{% static 'images/Photo.jpg' %}" width="200" height="200">
+</div>
+<footer class="footer">
+    <center>
+        <p>&copy;2026 Shrirang Amle. All rights reserved.</p>
+    </center>
+</footer>
+
+
+{% endblock %}

@@ -1,0 +1,8 @@
+com\bookstore\config\DataLoader.class
+com\bookstore\controller\UserController.class
+com\bookstore\OnlineBookStoreApplication.class
+com\bookstore\controller\HomeController.class
+com\bookstore\model\User.class
+com\bookstore\model\Book.class
+com\bookstore\repository\UserRepository.class
+com\bookstore\repository\BookRepository.class

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Shape Drawing</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        select,
+        button {
+            padding: 10px;
+            margin: 10px 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #2563eb;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        canvas {
+            width: 100%;
+            display: block;
+            border: 2px solid #999;
+            background: #fff;
+        }
+
+        @media (max-width: 600px) {
+            select,
+            button {
+                width: 100%;
+                margin: 6px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Canvas Drawing</h1>
+        <p>Select a shape and click two points on the canvas.</p>
+
+        <label for="shapeType">Shape:</label>
+        <select id="shapeType">
+            <option value="line">Line</option>
+            <option value="rectangle">Rectangle</option>
+        </select>
+        <button id="clearCanvas" type="button">Clear Canvas</button>
+
+        <canvas id="drawingCanvas" width="800" height="450">
+            Your browser does not support the canvas tag.
+        </canvas>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

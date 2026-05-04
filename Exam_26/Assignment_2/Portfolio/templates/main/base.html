@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+<video autoplay muted loop playsinline class="bg-video">
+    <source src="{% static 'videos/Bgvideo.mp4' %}" type="video/mp4">
+    Your browser does not support HTML5 video.
+</video>
+
+<nav class="nav1 navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="brand navbar-brand" href="{% url 'home' %}">Shrirang Amle</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="nav2 collapse navbar-collapse" id="nav2">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'personal' %}">Personal</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'education' %}">Education</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'skills' %}">Skills</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'projects' %}">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'certifications' %}">Certifications</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div style="padding-top: 80px;">
+    {% block content %}{% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

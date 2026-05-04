@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="Heading">
+        <h2 style="color:white; text-align:center;">Contact Me</h2>
+    </div>
+
+    <div class="personal_details" style="background-color: lightskyblue; max-width: 600px; margin: auto;">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Message</label>
+                <textarea class="form-control" name="message" rows="4" required></textarea>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark">Send Message</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+CREATE DATABASE IF NOT EXISTS online_book_store;
+USE online_book_store;
+
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS book (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(150),
+    author VARCHAR(100),
+    price DOUBLE,
+    image_url VARCHAR(500)
+);

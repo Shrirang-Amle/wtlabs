@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library Management System</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: #2c3e50;
+      color: #fff;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    header h1 { font-size: 1.6rem; }
+    header span { font-size: 2rem; }
+
+    /* ── Layout ── */
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      gap: 2rem;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      padding: 1.5rem;
+    }
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+      border-bottom: 2px solid #e8ecf0;
+      padding-bottom: .5rem;
+    }
+
+    /* ── Form ── */
+    form { display: flex; flex-wrap: wrap; gap: .8rem; }
+    form input {
+      flex: 1 1 180px;
+      padding: .6rem .9rem;
+      border: 1px solid #ccd;
+      border-radius: 6px;
+      font-size: .95rem;
+    }
+    form input:focus { outline: none; border-color: #2980b9; box-shadow: 0 0 0 3px rgba(41,128,185,.15); }
+    form button {
+      padding: .6rem 1.4rem;
+      background: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    form button:hover { background: #219150; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      padding: .75rem 1.2rem;
+      border-radius: 8px;
+      font-size: .9rem;
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+      z-index: 999;
+    }
+    #toast.show { opacity: 1; }
+    #toast.success { background: #27ae60; }
+    #toast.error   { background: #e74c3c; }
+
+    /* ── Stats bar ── */
+    #stats {
+      font-size: .9rem;
+      color: #666;
+      margin-bottom: .8rem;
+    }
+
+    /* ── Search ── */
+    #searchBox {
+      width: 100%;
+      padding: .6rem .9rem;
+      border: 1px solid #ccd;
+      border-radius: 6px;
+      font-size: .95rem;
+      margin-bottom: 1rem;
+    }
+    #searchBox:focus { outline: none; border-color: #2980b9; }
+
+    /* ── Table ── */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .93rem;
+    }
+    thead tr { background: #2c3e50; color: #fff; }
+    thead th { padding: .75rem 1rem; text-align: left; }
+    tbody tr { border-bottom: 1px solid #e8ecf0; transition: background .15s; }
+    tbody tr:hover { background: #f7f9fb; }
+    tbody td { padding: .7rem 1rem; }
+
+    .badge {
+      display: inline-block;
+      background: #eaf4fb;
+      color: #2980b9;
+      border-radius: 4px;
+      padding: .15rem .5rem;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    .btn-delete {
+      background: none;
+      border: 1px solid #e74c3c;
+      color: #e74c3c;
+      border-radius: 5px;
+      padding: .25rem .65rem;
+      cursor: pointer;
+      font-size: .82rem;
+      transition: background .2s, color .2s;
+    }
+    .btn-delete:hover { background: #e74c3c; color: #fff; }
+
+    #emptyMsg {
+      text-align: center;
+      color: #999;
+      padding: 2rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span>📚</span>
+  <h1>Library Management System</h1>
+</header>
+
+<main>
+
+  <!-- Add Book Form -->
+  <section class="card">
+    <h2>➕ Add New Book</h2>
+    <form id="addForm">
+      <input type="text"   id="title"  placeholder="Book Title"   required />
+      <input type="text"   id="author" placeholder="Author Name"  required />
+      <input type="number" id="year"   placeholder="Year (e.g. 2001)" min="1" max="2100" required />
+      <button type="submit">Add Book</button>
+    </form>
+  </section>
+
+  <!-- Book List -->
+  <section class="card">
+    <h2>📖 All Books</h2>
+    <p id="stats">Loading…</p>
+    <input type="text" id="searchBox" placeholder="🔍  Search by title or author…" />
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="bookTableBody"></tbody>
+      </table>
+      <p id="emptyMsg">No books found.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- Toast notification -->
+<div id="toast"></div>
+
+<script>
+  // ── Helpers ──────────────────────────────────────────────────────────────
+  let allBooks = [];
+
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `show ${type}`;
+    setTimeout(() => { t.className = ''; }, 3000);
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  // ── Render table ─────────────────────────────────────────────────────────
+  function renderTable(books) {
+    const tbody    = document.getElementById('bookTableBody');
+    const emptyMsg = document.getElementById('emptyMsg');
+
+    if (books.length === 0) {
+      tbody.innerHTML = '';
+      emptyMsg.style.display = 'block';
+      return;
+    }
+    emptyMsg.style.display = 'none';
+
+    tbody.innerHTML = books.map((b, i) => `
+      <tr>
+        <td>${i + 1}</td>
+        <td><span class="badge">${b.book_id}</span></td>
+        <td>${escapeHtml(b.title)}</td>
+        <td>${escapeHtml(b.author)}</td>
+        <td>${b.year}</td>
+        <td>
+          <button class="btn-delete" onclick="deleteBook(${b.book_id})">Delete</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ── Fetch all books ───────────────────────────────────────────────────────
+  async function loadBooks() {
+    try {
+      const res  = await fetch('/api/books');
+      const json = await res.json();
+      allBooks   = json.data;
+      document.getElementById('stats').textContent =
+        `Total books in library: ${allBooks.length}`;
+      renderTable(allBooks);
+    } catch (err) {
+      showToast('Failed to load books.', 'error');
+    }
+  }
+
+  // ── Add book ──────────────────────────────────────────────────────────────
+  document.getElementById('addForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const title  = document.getElementById('title').value.trim();
+    const author = document.getElementById('author').value.trim();
+    const year   = parseInt(document.getElementById('year').value, 10);
+
+    try {
+      const res  = await fetch('/api/books', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ title, author, year }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message);
+      showToast(`"${json.data.title}" added successfully!`);
+      e.target.reset();
+      loadBooks();
+    } catch (err) {
+      showToast(err.message || 'Failed to add book.', 'error');
+    }
+  });
+
+  // ── Delete book ───────────────────────────────────────────────────────────
+  async function deleteBook(id) {
+    if (!confirm('Delete this book?')) return;
+    try {
+      const res  = await fetch(`/api/books/${id}`, { method: 'DELETE' });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message);
+      showToast('Book deleted.');
+      loadBooks();
+    } catch (err) {
+      showToast(err.message || 'Failed to delete book.', 'error');
+    }
+  }
+
+  // ── Live search ───────────────────────────────────────────────────────────
+  document.getElementById('searchBox').addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase();
+    const filtered = allBooks.filter(b =>
+      b.title.toLowerCase().includes(q) ||
+      b.author.toLowerCase().includes(q)
+    );
+    renderTable(filtered);
+  });
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  loadBooks();
+</script>
+</body>
+</html>

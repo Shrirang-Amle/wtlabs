@@ -1,0 +1,80 @@
+.image_section 
+{
+    display: flex;
+    justify-content: right;
+    align-items: center;  
+    margin: 20px;
+    border-radius: 10%;
+
+}
+.image_section h2
+{
+    margin-top: 50px;
+    margin-right: 50px;
+    text-align: center;
+    color: white;
+}
+.image_section img 
+{
+    border-radius: 10%;
+    height: fit-content;
+}
+.Education_section, .personal_details, .Skill_section, .Heading,.Project_section,.Certification 
+{
+    margin: 20px;
+    padding: 15px;
+    border-radius: 15px;
+}
+.nav1 {
+     background-image: none;
+    background-color: lightskyblue;
+    position: relative;
+    z-index: 1000;
+}
+
+body{
+    background-image: url(../images/Bgimage.jpg);
+    background-repeat: no-repeat ;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+}
+.footer {
+    background-color: #111827 ;
+    color: white;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-top: 100px;
+    position: sticky;
+    left: 0;
+    width: 100%;
+}
+.content-wrapper {
+    padding-bottom: 70px; 
+}
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    z-index: -1;
+}
+
+@media (max-height: 600px) {
+    .footer {
+        position: static;
+    }
+}
+@media (max-width: 768px) {
+    .image_section {
+        flex-direction: column;
+    }
+
+    .image_section h2 {
+        margin: 20px 0;
+    }
+}
+

@@ -1,0 +1,1 @@
+{"name":"SHRIRANG AMLE","course":"BTECH in Computer Engineering","sub1_mse":70,"sub1_ese":60,"sub2_mse":90,"sub2_ese":80,"sub3_mse":50,"sub3_ese":65,"sub4_mse":78,"sub4_ese":87}

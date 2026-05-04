@@ -1,0 +1,182 @@
+:root {
+  color: #102a43;
+  background:
+    radial-gradient(circle at top left, rgba(255, 196, 61, 0.24), transparent 28%),
+    linear-gradient(135deg, #f4efe6 0%, #d9e6f2 100%);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  display: grid;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 20px;
+}
+
+.hero-card,
+.notifications-panel {
+  border: 1px solid rgba(16, 42, 67, 0.12);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 45px rgba(16, 42, 67, 0.08);
+}
+
+.hero-card {
+  padding: 32px;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b54708;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 12px;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  line-height: 1;
+}
+
+.description,
+.panel-header p,
+.notification-card p,
+.empty-state p {
+  color: #486581;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.controls label {
+  width: 100%;
+  font-weight: 600;
+}
+
+.controls select,
+.controls button,
+.dismiss-button {
+  border-radius: 14px;
+  border: 1px solid rgba(16, 42, 67, 0.12);
+  padding: 12px 16px;
+}
+
+.controls select {
+  min-width: 180px;
+  background: #fffdf8;
+}
+
+.controls button,
+.dismiss-button {
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, #0f766e 0%, #155e75 100%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.controls button:hover,
+.dismiss-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(21, 94, 117, 0.2);
+}
+
+.notifications-panel {
+  padding: 28px;
+}
+
+.panel-header {
+  margin-bottom: 20px;
+}
+
+.notification-list {
+  display: grid;
+  gap: 16px;
+}
+
+.notification-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 18px;
+  border-radius: 18px;
+  border-left: 8px solid transparent;
+  background: #ffffff;
+}
+
+.notification-success {
+  border-left-color: #2f855a;
+}
+
+.notification-info {
+  border-left-color: #2b6cb0;
+}
+
+.notification-warning {
+  border-left-color: #c05621;
+}
+
+.dismiss-button {
+  flex-shrink: 0;
+}
+
+.empty-state {
+  padding: 28px;
+  border: 1px dashed rgba(72, 101, 129, 0.35);
+  border-radius: 18px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 700px) {
+  .app-shell {
+    padding: 24px 14px;
+  }
+
+  .hero-card,
+  .notifications-panel {
+    padding: 20px;
+  }
+
+  .notification-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dismiss-button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <video autoplay muted loop playsinline class="bg-video">
+        <source src="videos/bgvideo2.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <nav class="nav1 navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="brand navbar-brand" href="home.html">Shrirang Amle</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nav2">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="personal.html">Personal</a></li>
+                    <li class="nav-item"><a class="nav-link" href="education.html">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="skills.html">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="certifications.html">Certifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+    <div class="container mt-4">
+        <div class="Heading">
+            <h2>Contact Me</h2>
+        </div>
+
+        <div class="personal_details" style="max-width: 600px; margin: auto;">
+            <form id="contactForm">
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                    <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div class="invalid-feedback">Please enter a valid email.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                    <div class="invalid-feedback">Please enter a message.</div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-dark">Send Message</button>
+                </div>
+
+                <div id="successMsg" class="alert alert-success mt-3" style="display:none;">
+                    Message sent successfully!
+                </div>
+            </form>
+        </div>
+    </div>
+    </div><!-- end page-wrapper -->
+
+    <footer class="footer">
+        <p>&copy; 2026 Shrirang Amle. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Highlight active nav link
+            const page = window.location.pathname.split('/').pop();
+            $('.nav-link').each(function () {
+                if ($(this).attr('href') === page) $(this).css('color', 'lightskyblue');
+            });
+
+            // Form validation
+            $('#contactForm').on('submit', function (e) {
+                e.preventDefault();
+                let valid = true;
+
+                $(this).find('[required]').each(function () {
+                    if (!$(this).val().trim()) {
+                        $(this).addClass('is-invalid');
+                        valid = false;
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
+                });
+
+                if (valid) {
+                    $('#successMsg').fadeIn();
+                    this.reset();
+                    setTimeout(function () { $('#successMsg').fadeOut(); }, 3000);
+                }
+            });
+
+            // Clear invalid on type
+            $('[required]').on('input', function () {
+                if ($(this).val().trim()) $(this).removeClass('is-invalid');
+            });
+        });
+    </script>
+</body>
+</html>

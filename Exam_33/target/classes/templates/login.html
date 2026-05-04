@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login – Secure App</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1>🔐 Secure Login</h1>
+            <p>Sign in to your account</p>
+        </div>
+
+        <!-- ── Success / info messages ── -->
+        <div th:if="${logoutSuccess}" class="alert alert-success">
+            ✅ You have been logged out successfully.
+        </div>
+        <div th:if="${registrationSuccess}" class="alert alert-success"
+             th:text="${registrationSuccess}"></div>
+
+        <!-- ── Error messages ── -->
+
+        <!-- Account locked -->
+        <div th:if="${errorType == 'locked'}" class="alert alert-danger">
+            <strong>🔒 Account Locked</strong>
+            <p>Your account has been locked due to too many failed login attempts.</p>
+            <p th:if="${remaining > 0}">
+                Please try again in <strong th:text="${remaining}"></strong> minute(s),
+                or contact an administrator.
+            </p>
+            <p th:if="${remaining == 0}">
+                The lock duration has just expired. Please try logging in again.
+            </p>
+        </div>
+
+        <!-- Bad credentials with attempts remaining -->
+        <div th:if="${errorType == 'bad_credentials'}" class="alert alert-warning">
+            <strong>⚠️ Incorrect Password</strong>
+            <p th:if="${attemptsLeft > 1}">
+                Invalid username or password.
+                You have <strong th:text="${attemptsLeft}"></strong> attempt(s) remaining
+                before your account is locked.
+            </p>
+            <p th:if="${attemptsLeft == 1}">
+                Invalid username or password.
+                <strong>Warning:</strong> This is your last attempt before your account is locked.
+            </p>
+            <p th:if="${attemptsLeft == 0}">
+                Your account has been locked due to too many failed attempts.
+                Please wait <strong th:text="${lockDuration}"></strong> minutes or contact an administrator.
+            </p>
+        </div>
+
+        <!-- Username not found -->
+        <div th:if="${errorType == 'not_found'}" class="alert alert-warning">
+            <strong>⚠️ User Not Found</strong>
+            <p>No account exists with that username. Please check your credentials or
+                <a th:href="@{/register}">register a new account</a>.</p>
+        </div>
+
+        <!-- Generic error fallback -->
+        <div th:if="${errorType == 'error'}" class="alert alert-danger">
+            <strong>❌ Authentication Failed</strong>
+            <p>An error occurred during login. Please try again.</p>
+        </div>
+
+        <!-- ── Login form ── -->
+        <form th:action="@{/login}" method="post" class="form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username"
+                       placeholder="Enter your username"
+                       required autocomplete="username"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"
+                       placeholder="Enter your password"
+                       required autocomplete="current-password"/>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+        </form>
+
+        <div class="card-footer">
+            <p>Don't have an account? <a th:href="@{/register}">Register here</a></p>
+        </div>
+    </div>
+
+    <!-- Demo credentials hint -->
+    <div class="demo-hint">
+        <strong>Demo accounts:</strong>
+        user / password &nbsp;|&nbsp; admin / admin123
+    </div>
+</div>
+</body>
+</html>

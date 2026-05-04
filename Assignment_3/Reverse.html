@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<head>
+<title>Array Operations</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+center{
+    background-color: white;
+    width: 450px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+h1{
+    color: #333;
+}
+
+label{
+    font-weight: bold;
+}
+
+input{
+    padding: 5px;
+    margin: 5px;
+}
+
+textarea{
+    width: 250px;
+    height: 35px;
+    margin-bottom: 10px;
+}
+
+button{
+    padding: 6px 12px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+button:hover{
+    background-color: #45a049;
+}
+
+</style>
+</head>
+
+<body>
+
+<center>
+
+<h1>Array Sorting, Searching & Reversal in JavaScript</h1>
+
+<label>Enter Array Elements:</label><br>
+
+<input type="number" id="size" placeholder="Enter array size">
+
+<div id="inputs"></div>
+
+<button onclick="createInputs()">Generate Inputs</button><br>
+<label>Select Sorting Method:</label><br>
+
+<input type="radio" name="sortType" value="bubble" checked> Bubble Sort
+<input type="radio" name="sortType" value="merge"> Merge Sort
+<br><br>
+<button onclick="sortArray()">Sort</button>
+<br>
+
+<label>Print Original Array</label><br>
+<textarea id="printarr"></textarea><br>
+
+<label>Print Sorted Array Using Bubble Sort</label><br>
+<textarea id="printsort"></textarea><br>
+
+<label>Print Sorted Array Using Merge Sort</label><br>
+<textarea id="printmerge"></textarea><br>
+
+<label>Search an element in array</label><br>
+<input type="number" id="target" placeholder="Enter element"><br>
+
+<label>Result:</label><br>
+<textarea id="searchresult"></textarea><br>
+<button onclick="searchElement()">Search</button><br>
+<label>Print Reverse Array</label><br>
+<textarea id="printrev"></textarea><br>
+
+<button onclick="reverseArray()">Reverse</button>
+
+<script src="reverse.js"></script>
+
+</center>
+
+</body>
+</html>

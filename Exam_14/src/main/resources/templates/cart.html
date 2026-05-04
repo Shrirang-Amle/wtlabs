@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store - Cart</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="navbar">
+    <div class="logo">Book Store</div>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/catalog}">Catalog</a>
+        <a th:href="@{/cart}">Cart (<span th:text="${cartCount}">0</span>)</a>
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/register}">Register</a>
+    </nav>
+</header>
+
+<section class="section">
+    <h1>Your Cart</h1>
+
+    <div class="cart-empty" th:if="${#lists.isEmpty(cartItems)}">
+        <p>Your cart is empty.</p>
+        <a class="btn" th:href="@{/catalog}">Browse Books</a>
+    </div>
+
+    <div th:if="${!#lists.isEmpty(cartItems)}">
+        <div class="cart-list">
+            <div class="cart-item" th:each="book, stat : ${cartItems}">
+                <img th:src="${book.imageUrl}" th:alt="${book.title}">
+                <div class="cart-item-details">
+                    <h3 th:text="${book.title}"></h3>
+                    <p th:text="${book.author}"></p>
+                    <p class="price">Rs. <span th:text="${book.price}"></span></p>
+                </div>
+                <form th:action="@{/cart/remove/{index}(index=${stat.index})}" method="post">
+                    <button type="submit" class="btn remove-btn">Remove</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="cart-summary">
+            <h3>Total: Rs. <span th:text="${total}"></span></h3>
+            <a class="btn" th:href="@{/catalog}">Continue Shopping</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

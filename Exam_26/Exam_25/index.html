@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Signal Lights</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      color: #222;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    p {
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .signal-box,
+    .diagram-box {
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      border-radius: 10px;
+      padding: 20px;
+      flex: 1 1 300px;
+      max-width: 380px;
+    }
+
+    .signal {
+      width: 130px;
+      background-color: #222;
+      margin: 20px auto;
+      padding: 15px 0;
+      border-radius: 20px;
+    }
+
+    .light {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin: 15px auto;
+      opacity: 0.35;
+    }
+
+    .red {
+      background-color: red;
+    }
+
+    .yellow {
+      background-color: yellow;
+    }
+
+    .green {
+      background-color: green;
+    }
+
+    .active.red {
+      opacity: 1;
+      box-shadow: 0 0 20px red;
+    }
+
+    .active.yellow {
+      opacity: 1;
+      box-shadow: 0 0 20px gold;
+    }
+
+    .active.green {
+      opacity: 1;
+      box-shadow: 0 0 20px limegreen;
+    }
+
+    .pole {
+      width: 15px;
+      height: 130px;
+      background-color: #555;
+      margin: auto;
+    }
+
+    .base {
+      width: 120px;
+      height: 18px;
+      background-color: #555;
+      margin: auto;
+      border-radius: 10px;
+    }
+
+    .status {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #003366;
+    }
+
+    .diagram {
+      width: 100%;
+      height: 260px;
+      position: relative;
+      background-color: #d9d9d9;
+      border: 1px solid #999;
+      margin-top: 20px;
+    }
+
+    .road-horizontal {
+      position: absolute;
+      top: 105px;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background-color: #666;
+    }
+
+    .road-vertical {
+      position: absolute;
+      top: 0;
+      left: 42%;
+      width: 50px;
+      height: 100%;
+      background-color: #666;
+    }
+
+    .line-h {
+      position: absolute;
+      top: 128px;
+      left: 0;
+      width: 100%;
+      border-top: 3px dashed #fff;
+    }
+
+    .line-v {
+      position: absolute;
+      left: calc(42% + 23px);
+      top: 0;
+      height: 100%;
+      border-left: 3px dashed #fff;
+    }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 700px) {
+      .content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .diagram {
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Traffic Signal Lights</h1>
+
+    <div class="content">
+      <div class="signal-box">
+        <h2 style="text-align:center;">Traffic Signal</h2>
+
+        <div class="signal">
+          <div class="light red active" id="redLight"></div>
+          <div class="light yellow" id="yellowLight"></div>
+          <div class="light green" id="greenLight"></div>
+        </div>
+
+        <div class="pole"></div>
+        <div class="base"></div>
+
+        <p class="status" id="statusText">Current Signal: STOP</p>
+      </div>
+
+      <div class="diagram-box">
+        <h2 style="text-align:center;">Road Diagram</h2>
+        <div class="diagram">
+          <div class="road-horizontal"></div>
+          <div class="road-vertical"></div>
+          <div class="line-h"></div>
+          <div class="line-v"></div>
+        </div>
+
+        <ul>
+          <li>Red light means Stop.</li>
+          <li>Yellow light means Wait.</li>
+          <li>Green light means Go.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const lights = [
+      { element: document.getElementById("redLight"), text: "Current Signal: STOP" },
+      { element: document.getElementById("yellowLight"), text: "Current Signal: WAIT" },
+      { element: document.getElementById("greenLight"), text: "Current Signal: GO" }
+    ];
+
+    const statusText = document.getElementById("statusText");
+    let current = 0;
+
+    function showLight(index) {
+      lights.forEach((light, i) => {
+        light.element.classList.toggle("active", i === index);
+      });
+      statusText.textContent = lights[index].text;
+    }
+
+    setInterval(function () {
+      current = (current + 1) % lights.length;
+      showLight(current);
+    }, 2000);
+  </script>
+</body>
+</html>

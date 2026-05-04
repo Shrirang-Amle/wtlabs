@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard – Secure App</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1>🏠 Dashboard</h1>
+            <p>Welcome back, <strong th:text="${user.username}"></strong>!</p>
+        </div>
+
+        <div class="user-info">
+            <h2>Account Details</h2>
+            <table class="info-table">
+                <tr>
+                    <th>Username</th>
+                    <td th:text="${user.username}"></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td th:text="${user.email}"></td>
+                </tr>
+                <tr>
+                    <th>Role</th>
+                    <td th:text="${user.role}"></td>
+                </tr>
+                <tr>
+                    <th>Account Status</th>
+                    <td>
+                        <span th:if="${!user.accountLocked}" class="badge badge-success">✅ Active</span>
+                        <span th:if="${user.accountLocked}" class="badge badge-danger">🔒 Locked</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Failed Attempts</th>
+                    <td th:text="${user.failedAttempts}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Admin panel link (only visible to admins) -->
+        <div sec:authorize="hasRole('ADMIN')" class="admin-section">
+            <h2>Admin Panel</h2>
+            <a th:href="@{/admin/users}" class="btn btn-secondary">Manage Users</a>
+        </div>
+
+        <div class="card-footer">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-danger">Sign Out</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

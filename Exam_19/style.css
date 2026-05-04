@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.main-box {
+    width: 800px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    padding: 8px;
+    margin: 5px;
+}
+
+button {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+}
+
+.clear-btn {
+    background-color: #dc3545;
+}
+
+.message {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+}
+
+.seat-row {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.seat {
+    display: inline-block;
+    width: 60px;
+    padding: 10px 0;
+    margin: 4px;
+    color: white;
+    border-radius: 4px;
+}
+
+.available {
+    background-color: green;
+}
+
+.booked {
+    background-color: red;
+}
+
+.aisle {
+    display: inline-block;
+    width: 25px;
+}
+
+.list {
+    text-align: center;
+}

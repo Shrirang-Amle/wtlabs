@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shrirang Amle | Portfolio</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- Video Background -->
+    <video autoplay muted loop playsinline class="bg-video">
+        <source src="videos/bgvideo2.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <!-- Overlay -->
+    <div class="video-overlay"></div>
+
+    <!-- Navbar -->
+    <nav class="nav1 navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-4">
+            <a class="brand navbar-brand fw-bold" href="home.html">
+                <i class="fa-solid fa-code me-2"></i>Shrirang Amle
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav2"
+                aria-controls="nav2" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="nav2">
+                <ul class="navbar-nav ms-auto gap-1">
+                    <li class="nav-item"><a class="nav-link" href="home.html"><i class="fa-solid fa-house me-1"></i>Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="personal.html"><i class="fa-solid fa-user me-1"></i>Personal</a></li>
+                    <li class="nav-item"><a class="nav-link" href="education.html"><i class="fa-solid fa-graduation-cap me-1"></i>Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="skills.html"><i class="fa-solid fa-laptop-code me-1"></i>Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="projects.html"><i class="fa-solid fa-diagram-project me-1"></i>Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="certifications.html"><i class="fa-solid fa-certificate me-1"></i>Certifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fa-solid fa-envelope me-1"></i>Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="page-content">
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center py-3">
+            <p class="mb-0">&copy; 2026 Shrirang Amle. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // jQuery: highlight active nav link
+        $(document).ready(function () {
+            const currentPage = window.location.pathname.split('/').pop();
+            $('.nav-link').each(function () {
+                if ($(this).attr('href') === currentPage) {
+                    $(this).addClass('active-link');
+                }
+            });
+
+            // jQuery: smooth fade-in for page content
+            $('.page-content').hide().fadeIn(800);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator</title>
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --card: #fffaf2;
+      --text: #1f2933;
+      --accent: #b85c38;
+      --accent-dark: #8f452a;
+      --border: #e3d8c7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at top left, #fff4df 0%, transparent 35%),
+        linear-gradient(135deg, var(--bg), #efe4d0);
+      color: var(--text);
+    }
+
+    .card {
+      width: min(92vw, 460px);
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--card);
+      box-shadow: 0 14px 32px rgba(31, 41, 51, 0.12);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.8rem;
+      color: var(--accent-dark);
+    }
+
+    p {
+      margin: 0 0 18px;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    input,
+    button {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    input {
+      margin-bottom: 14px;
+      background: #fff;
+    }
+
+    button {
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: var(--accent-dark);
+    }
+
+    .result,
+    .error {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .result {
+      background: #f7e7d6;
+      color: #6c341f;
+    }
+
+    .error {
+      background: #fde8e8;
+      color: #a61b1b;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Age Calculator</h1>
+    <p>Enter your birth date to calculate your age in years, months, and days.</p>
+
+    <label for="birthDate">Birth Date</label>
+    <input type="date" id="birthDate">
+    <button type="button" id="calculateBtn">Calculate Age</button>
+
+    <div id="message"></div>
+  </main>
+
+  <script>
+    function calculateAge() {
+      const birthDateInput = document.getElementById("birthDate").value;
+      const message = document.getElementById("message");
+      message.className = "";
+      message.textContent = "";
+
+      if (!birthDateInput) {
+        message.className = "error";
+        message.textContent = "Please select your birth date.";
+        return;
+      }
+
+      const today = new Date();
+      const birthDate = new Date(birthDateInput);
+
+      if (birthDate > today) {
+        message.className = "error";
+        message.textContent = "Birth date cannot be in the future.";
+        return;
+      }
+
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+      let days = today.getDate() - birthDate.getDate();
+
+      if (days < 0) {
+        months--;
+        const previousMonthLastDay = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          0
+        ).getDate();
+        days += previousMonthLastDay;
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      message.className = "result";
+      message.textContent =
+        "Age: " + years + " years, " + months + " months, and " + days + " days.";
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", calculateAge);
+  </script>
+</body>
+</html>

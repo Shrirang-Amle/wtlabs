@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply One Style to All Controls</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .button-panel {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .button-panel button {
+            margin: 5px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .controls {
+            display: grid;
+            gap: 12px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea,
+        button.apply-control {
+            padding: 10px;
+            font-size: 15px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .row {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .theme1 {
+            background-color: #fff4cc;
+            color: #663300;
+            border: 2px solid #ff9900;
+            border-radius: 0;
+        }
+
+        .theme2 {
+            background-color: #e8f5e9;
+            color: #1b5e20;
+            border: 2px dashed #2e7d32;
+            border-radius: 12px;
+        }
+
+        .theme3 {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            border: 2px solid #1565c0;
+            border-radius: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Apply Same Style to All Controls</h1>
+
+        <div class="button-panel">
+            <button id="style1">Style 1</button>
+            <button id="style2">Style 2</button>
+            <button id="style3">Style 3</button>
+        </div>
+
+        <form class="controls">
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Enter your name">
+            </div>
+
+            <div class="row">
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                </div>
+                <div>
+                    <label for="city">City</label>
+                    <select id="city">
+                        <option>Select City</option>
+                        <option>Pune</option>
+                        <option>Mumbai</option>
+                        <option>Nashik</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label for="message">Message</label>
+                <textarea id="message" rows="4" placeholder="Enter message"></textarea>
+            </div>
+
+            <div>
+                <button type="submit" class="apply-control">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            function applyTheme(themeClass) {
+                $("input, select, textarea, .apply-control").removeClass("theme1 theme2 theme3");
+                $("input, select, textarea, .apply-control").addClass(themeClass);
+            }
+
+            $("#style1").click(function () {
+                applyTheme("theme1");
+            });
+
+            $("#style2").click(function () {
+                applyTheme("theme2");
+            });
+
+            $("#style3").click(function () {
+                applyTheme("theme3");
+            });
+        });
+    </script>
+</body>
+</html>
